@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Login - Maxelo Attendance System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --maxelo-primary: #2c3e50;
+            --maxelo-secondary: #3498db;
+            --maxelo-accent: #e74c3c;
+            --maxelo-light: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .maxelo-bg-primary {
+            background-color: var(--maxelo-primary);
+        }
+        
+        .maxelo-text-primary {
+            color: var(--maxelo-primary);
+        }
+        
+        .maxelo-btn-primary {
+            background-color: var(--maxelo-secondary);
+            border-color: var(--maxelo-secondary);
+            color: white;
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .maxelo-btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .maxelo-btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--maxelo-secondary);
+            color: var(--maxelo-secondary);
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .maxelo-btn-outline:hover {
+            background-color: var(--maxelo-secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .login-header {
+            background: var(--maxelo-primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            background: var(--maxelo-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .login-form {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--maxelo-primary);
+        }
+        
+        .form-control {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--maxelo-secondary);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            color: #aaa;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: var(--maxelo-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .forgot-password a:hover {
+            color: var(--maxelo-primary);
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .divider span {
+            padding: 0 10px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-to-home a {
+            color: var(--maxelo-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .back-to-home a:hover {
+            color: var(--maxelo-secondary);
+        }
+        
+        .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: var(--maxelo-primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <div class="logo-img">
+                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA21BMVEX////b2+bExNnIyt3p6vDW1uSYmr5VWp2Ljrjz9PXm7fismarEhnL//fj76+D2sIb4rn/6gBP6gyX3iDf4uZP1mVf2fhn8jjv3hCj5kEL2eg73xqjbzMJay/rgx7X4kknZ0MyrtMXLzNH1dAD3vZr3llH8pWnJwsSJjaKQkaKqq7rv+fva7/e00+fX7vbD5fH3pXCfnq2/3Oqg1+rE0+Wtqca24/KDgpdposzx7vK1vcv52MWHpcl0TFWCUU9aQ1tKP13nro3NjW5udpGks8KWqMZFdZ7oeScwO2cSjRhVAAAA2ElEQVR4Ae3QQ4IDQRQA0IrVtm3FtnP/E01jrPUgr5b1DX6dUrlS/e6/Vm80y62v/9sdCAbvIWgBwwmSev9JM2yKIxie4wTx3ScvySlF1XQDM613nzbvpFjX870gBGEYgWqcgKhbfBIi18McPQiC/iAadoej8aQL0pd/MjBJWY6Xmg4mSbc7m0+6UTeJikyHSBlp5sJazkESr2DQAsVZ1PVmu9tsnIWn74XDcXGqni9u/+gZeeY1x3AOzzCHW/U49WO/71WD7BPpvcCqRt9YBP2WsZgWu9w9ABnsHyZP6v+7AAAAAElFTkSuQmCC" alt="">
+                </div>
+                MAXELO
+            </div>
+            <p>Employee Attendance Portal</p>
+        </div>
+        
+        <div class="login-form">
+            <h3 class="text-center mb-4">Sign In to Your Account</h3>
+            
+            <form id="employeeLoginForm" action="employee_login_portal.html">
+                <div class="form-group">
+                    <label for="employeeEmail" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="employeeEmail" placeholder="Enter your email address" required>
+                    <i class="fas fa-envelope input-icon"></i>
+                </div>
+                
+                <div class="form-group">
+                    <label for="employeePassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="employeePassword" placeholder="Enter your password" required>
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+                
+                <div class="forgot-password">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn maxelo-btn-primary">Sign In</button>
+                </div>
+            </form>
+            
+            <div class="divider">
+                <span>New to Maxelo?</span>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button class="btn maxelo-btn-outline">Contact Administrator</button>
+            </div>
+            
+            <div class="back-to-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Homepage
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Your Password</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your email address and we'll send you instructions to reset your password.</p>
+                    
+                    <form id="forgotPasswordForm">
+                        <div class="form-group">
+                            <label for="resetEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="resetEmail" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn maxelo-btn-primary">Send Reset Instructions</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        
+        
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would normally handle the password reset request
+            alert('Password reset instructions would be sent to your email.');
+            // Close the modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+            modal.hide();
+        });
+    </script>
+</body>
+</html>

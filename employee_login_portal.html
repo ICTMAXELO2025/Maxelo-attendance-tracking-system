@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Portal - Maxelo Attendance System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --maxelo-primary: #2c3e50;
+            --maxelo-secondary: #3498db;
+            --maxelo-accent: #e74c3c;
+            --maxelo-light: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--maxelo-primary);
+        }
+        
+        .maxelo-bg-primary {
+            background-color: var(--maxelo-primary);
+        }
+        
+        .maxelo-text-primary {
+            color: var(--maxelo-primary);
+        }
+        
+        .maxelo-btn-primary {
+            background-color: var(--maxelo-secondary);
+            border-color: var(--maxelo-secondary);
+            color: white;
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .maxelo-btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .maxelo-btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--maxelo-secondary);
+            color: var(--maxelo-secondary);
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .maxelo-btn-outline:hover {
+            background-color: var(--maxelo-secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--maxelo-primary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            background: var(--maxelo-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .employee-portal {
+            padding: 30px 0;
+        }
+        
+        .portal-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .portal-header {
+            background: var(--maxelo-primary);
+            color: white;
+            padding: 20px;
+        }
+        
+        .employee-info {
+            padding: 25px;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            width: 120px;
+            color: var(--maxelo-primary);
+        }
+        
+        .info-value {
+            flex: 1;
+            color: #555;
+        }
+        
+        .attendance-section {
+            padding: 25px;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .date-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--maxelo-primary);
+            padding: 10px 15px;
+            background: var(--maxelo-light);
+            border-radius: 10px;
+        }
+        
+        .attendance-type {
+            margin-bottom: 20px;
+        }
+        
+        .attendance-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-clock {
+            flex: 1;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-clock-in {
+            background-color: #2ecc71;
+            border-color: #2ecc71;
+            color: white;
+        }
+        
+        .btn-clock-out {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-clock:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .attendance-history {
+            margin-top: 30px;
+        }
+        
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .history-table th {
+            background-color: var(--maxelo-primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .history-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .history-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-present {
+            background-color: #e6f7ee;
+            color: #2ecc71;
+        }
+        
+        .status-remote {
+            background-color: #e6f0f7;
+            color: #3498db;
+        }
+        
+        .footer {
+            background: var(--maxelo-primary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .attendance-buttons {
+                flex-direction: column;
+            }
+            
+            .info-row {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="logo" href="#">
+                <div class="logo-img">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA21BMVEX////b2+bExNnIyt3p6vDW1uSYmr5VWp2Ljrjz9PXm7fismarEhnL//fj76+D2sIb4rn/6gBP6gyX3iDf4uZP1mVf2fhn8jjv3hCj5kEL2eg73xqjbzMJay/rgx7X4kknZ0MyrtMXLzNH1dAD3vZr3llH8pWnJwsSJjaKQkaKqq7rv+fva7/e00+fX7vbD5fH3pXCfnq2/3Oqg1+rE0+Wtqca24/KDgpdposzx7vK1vcv52MWHpcl0TFWCUU9aQ1tKP13nro3NjW5udpGks8KWqMZFdZ7oeScwO2cSjRhVAAAA2ElEQVR4Ae3QQ4IDQRQA0IrVtm3FtnP/E01jrPUgr5b1DX6dUrlS/e6/Vm80y62v/9sdCAbvIWgBwwmSev9JM2yKIxie4wTx3ScvySlF1XQDM613nzbvpFjX870gBGEYgWqcgKhbfBIi18McPQiC/iAadoej8aQL0pd/MjBJWY6Xmg4mSbc7m0+6UTeJikyHSBlp5sJazkESr2DQAsVZ1PVmu9tsnIWn74XDcXGqni9u/+gZeeY1x3AOzzCHW/U49WO/71WD7BPpvcCqRt9YBP2WsZgWu9w9ABnsHyZP6v+7AAAAAElFTkSuQmCC" alt="">
+                
+                </div>
+                MAXELO
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user me-1"></i> Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-history me-1"></i> About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-cog me-1"></i> Settings</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn maxelo-btn-outline" href="index.html"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Employee Portal -->
+    <section class="employee-portal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="portal-card">
+                        <div class="portal-header">
+                            <h3 class="mb-0"><i class="fas fa-user me-2"></i>Employee Portal</h3>
+                        </div>
+                        
+                        <div class="employee-info">
+                            <h4 class="mb-4">Employee Information</h4>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Employee ID:</div>
+                                <div class="info-value">MAX-2023-0578</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Name:</div>
+                                <div class="info-value">John</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Surname:</div>
+                                <div class="info-value">Doe</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Email:</div>
+                                <div class="info-value">john.doe@maxelo.com</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Role:</div>
+                                <div class="info-value">Software Developer</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Position:</div>
+                                <div class="info-value">Senior Staff</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Phone:</div>
+                                <div class="info-value">+1 (555) 123-4567</div>
+                            </div>
+                        </div>
+                        
+                        <div class="attendance-section">
+                            <div class="date-display">
+                                <i class="fas fa-calendar-alt me-2"></i>Register of: September 5, 2023
+                            </div>
+                            
+                            <div class="attendance-type">
+                                <h5 class="mb-3">Select Attendance Type:</h5>
+                                <div class="d-flex gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="attendanceType" id="remoteType" checked>
+                                        <label class="form-check-label" for="remoteType">
+                                            <i class="fas fa-house-user me-1"></i> Remote Work
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="attendanceType" id="officeType">
+                                        <label class="form-check-label" for="officeType">
+                                            <i class="fas fa-building me-1"></i> Office Work
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="attendance-buttons">
+                                <button class="btn btn-clock btn-clock-in">
+                                    <i class="fas fa-fingerprint me-2"></i> Clock In
+                                </button>
+                                <button class="btn btn-clock btn-clock-out">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Clock Out
+                                </button>
+                            </div>
+                            
+                            <div class="current-status">
+                                <h5>Today's Status: <span class="text-success">Clocked In</span></h5>
+                                <p class="mb-0">Last action: Clock In at 08:15 AM (Remote)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-md-start">
+                    <p>&copy; 2023 Maxelo Business Solutions. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Employee Portal v1.0</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to update the date display
+        function updateDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            document.querySelector('.date-display').innerHTML = 
+                `<i class="fas fa-calendar-alt me-2"></i>Register of: ${dateString}`;
+        }
+        
+        // Update date on page load
+        updateDate();
+        
+        // Clock In functionality
+        document.querySelector('.btn-clock-in').addEventListener('click', function() {
+            const attendanceType = document.querySelector('input[name="attendanceType"]:checked').value;
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            alert(`Clocked In at ${timeString} (${attendanceType} Work)`);
+            
+            // Update status display
+            document.querySelector('.current-status h5 span').textContent = 'Clocked In';
+            document.querySelector('.current-status h5 span').className = 'text-success';
+            document.querySelector('.current-status p').textContent = 
+                `Last action: Clock In at ${timeString} (${attendanceType})`;
+        });
+        
+        // Clock Out functionality
+        document.querySelector('.btn-clock-out').addEventListener('click', function() {
+            const attendanceType = document.querySelector('input[name="attendanceType"]:checked').value;
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            alert(`Clocked Out at ${timeString} (${attendanceType} Work)`);
+            
+            // Update status display
+            document.querySelector('.current-status h5 span').textContent = 'Clocked Out';
+            document.querySelector('.current-status h5 span').className = 'text-danger';
+            document.querySelector('.current-status p').textContent = 
+                `Last action: Clock Out at ${timeString} (${attendanceType})`;
+        });
+    </script>
+</body>
+</html>

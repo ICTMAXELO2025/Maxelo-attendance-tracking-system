@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxelo Attendance Tracking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+       
+        :root {
+            --maxelo-primary: #2c3e50;
+            --maxelo-secondary: #3498db;
+            --maxelo-accent: #e74c3c;
+            --maxelo-light: #ecf0f1;
+        }
+         .maxeloname
+        {
+            padding-right: 10px;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--maxelo-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .maxelo-bg-primary {
+            background-color: var(--maxelo-primary);
+        }
+        
+        .maxelo-text-primary {
+            color: var(--maxelo-primary);
+        }
+        
+        .maxelo-btn-primary {
+            background-color: var(--maxelo-secondary);
+            border-color: var(--maxelo-secondary);
+            color: white;
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .maxelo-btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .maxelo-btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--maxelo-secondary);
+            color: var(--maxelo-secondary);
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .maxelo-btn-outline:hover {
+            background-color: var(--maxelo-secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            padding: 100px 0 60px;
+            flex-grow: 1;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--maxelo-primary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            background: var(--maxelo-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--maxelo-secondary);
+            margin-bottom: 20px;
+        }
+        
+       
+        
+        .footer {
+            background: var(--maxelo-primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .cta-section {
+            background: var(--maxelo-secondary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0 40px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .logo-img {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="logo" href="#">
+                <div class="maxeloname">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA21BMVEX////b2+bExNnIyt3p6vDW1uSYmr5VWp2Ljrjz9PXm7fismarEhnL//fj76+D2sIb4rn/6gBP6gyX3iDf4uZP1mVf2fhn8jjv3hCj5kEL2eg73xqjbzMJay/rgx7X4kknZ0MyrtMXLzNH1dAD3vZr3llH8pWnJwsSJjaKQkaKqq7rv+fva7/e00+fX7vbD5fH3pXCfnq2/3Oqg1+rE0+Wtqca24/KDgpdposzx7vK1vcv52MWHpcl0TFWCUU9aQ1tKP13nro3NjW5udpGks8KWqMZFdZ7oeScwO2cSjRhVAAAA2ElEQVR4Ae3QQ4IDQRQA0IrVtm3FtnP/E01jrPUgr5b1DX6dUrlS/e6/Vm80y62v/9sdCAbvIWgBwwmSev9JM2yKIxie4wTx3ScvySlF1XQDM613nzbvpFjX870gBGEYgWqcgKhbfBIi18McPQiC/iAadoej8aQL0pd/MjBJWY6Xmg4mSbc7m0+6UTeJikyHSBlp5sJazkESr2DQAsVZ1PVmu9tsnIWn74XDcXGqni9u/+gZeeY1x3AOzzCHW/U49WO/71WD7BPpvcCqRt9YBP2WsZgWu9w9ABnsHyZP6v+7AAAAAElFTkSuQmCC" alt="">
+                </div>
+                MAXELO ATTENDANCE TRACKING SYSTEM
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="mb-4">Streamline Your Workforce Management</h1>
+                    <p class="welcome-text mx-auto">
+                        The Maxelo Attendance Tracking System helps businesses efficiently manage employee attendance, 
+                        whether working from home or in the office. Save time, reduce errors, and improve productivity.
+                    </p>
+                    
+                    <div class="d-flex gap-3 flex-wrap justify-content-center">
+                        <a href="admin_login.html" class="btn maxelo-btn-primary">
+                            <i class=""></i>Admin Login
+                        </a>
+                        <a href="employee_login.html" class="btn maxelo-btn-outline">
+                            <i class=""></i>Employee Login
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+   
+    
+    
+    
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="logo justify-content-center justify-content-lg-start">
+                        <div class="">
+                        </div>
+                        MAXELO ATTENDANCE
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>Contact Us</h5>
+                    <p><i class="fas fa-envelope me-2"></i> mandlaxavi@gamil.com/info@maxelobs.co.za</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 (15) 013-0303/+27 72 097 9413</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Stand No. 1447, Malamulele B-Extention, Malamulele, 0982</p>
+                </div>
+                <div class="col-lg-4">
+                   
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-md-start">
+                    <p>&copy; 2025 Maxelo Business Solutions. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
